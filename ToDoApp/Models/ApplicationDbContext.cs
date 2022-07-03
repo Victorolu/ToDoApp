@@ -4,9 +4,8 @@ namespace ToDoApp.Models
 {
     public class ApplicationDbContext : DbContext
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options, DbSet<ToDoEntry> toDoEntries) : base(options)
+        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
         {
-            ToDoEntries = toDoEntries;
         }
 
         public DbSet<ToDoEntry> ToDoEntries { get; set; }
