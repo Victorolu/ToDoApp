@@ -19,20 +19,8 @@ namespace ToDoApp.Controllers
         public ActionResult Index()
         {
             ToDoViewModel model = new ToDoViewModel();
-            model.Entries = new List<ToDoEntry>()
-            {
-                new ToDoEntry() { Id = 1, EntryText = "Water floor plants", IsActive = true, CreatedBy = DateTime.UtcNow, ExpiresBy = null },
-                new ToDoEntry() { Id = 2, EntryText = "Call Doctor", IsActive = false, CreatedBy = DateTime.UtcNow, ExpiresBy = DateTime.UtcNow.AddDays(2) },
-                new ToDoEntry() { Id = 3, EntryText = "Buy groceries", IsActive = true, CreatedBy = DateTime.UtcNow, ExpiresBy = null },
-                new ToDoEntry() { Id = 4, EntryText = "Collect car keys", IsActive = true, CreatedBy = DateTime.UtcNow, ExpiresBy = null },
-                new ToDoEntry() { Id = 5, EntryText = "Prepare for interview", IsActive = false, CreatedBy = DateTime.UtcNow, ExpiresBy = DateTime.UtcNow.AddDays(2) },
-                new ToDoEntry() { Id = 6, EntryText = "Pray", IsActive = true, CreatedBy = DateTime.UtcNow, ExpiresBy = null },
-                new ToDoEntry() { Id = 7, EntryText = "Write introduction of thesis", IsActive = true, CreatedBy = DateTime.UtcNow, ExpiresBy = null },
-                new ToDoEntry() { Id = 8, EntryText = "Watch tutorials", IsActive = false, CreatedBy = DateTime.UtcNow, ExpiresBy = DateTime.UtcNow.AddDays(3)},
-                new ToDoEntry() { Id = 9, EntryText = "Speak to pastor", IsActive = true, CreatedBy = DateTime.UtcNow, ExpiresBy = null }
-            };
-            /*var entries = _toDoBusiness.GetAllEntries();
-            model.Entries = entries;*/
+            var entries = _toDoBusiness.GetAllEntries();
+            model.Entries = entries;
             return View(model);
         }
 
