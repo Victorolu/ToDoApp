@@ -39,10 +39,17 @@ namespace ToDoApp.Business
         {
             try
             {
-                ToDoEntry entry = new ToDoEntry() { Id = id };
-                _dbContext.ToDoEntries.Attach(entry);
-                _dbContext.ToDoEntries.Remove(entry);
-                await _dbContext.SaveChangesAsync();
+                var entryObject = _dbContext.ToDoEntries.SingleOrDefault(x => x.Id == id);
+                if (entryObject != null)
+                {
+                    _dbContext.ToDoEntries.Attach(entryObject);
+                    _dbContext.ToDoEntries.Remove(entryObject);
+                    await _dbContext.SaveChangesAsync();
+                }
+                else
+                {
+                    throw new Exception("Could not find record");
+                }
             }
             catch(Exception ex)
             {
@@ -53,10 +60,20 @@ namespace ToDoApp.Business
 
         public async Task UpdateEntry(ToDoEntry entry)
         {
+            //This should be used to update fields like EntryText, IsActive or ExpireBy
             try
             {
-                _dbContext.ToDoEntries.Update(entry);
-                await _dbContext.SaveChangesAsync();
+                var entryObject = _dbContext.ToDoEntries.SingleOrDefault(x => x.Id == entry.Id);
+                if (entryObject != null)
+                {
+                    entryObject.EntryText = entry.EntryText != null ? entry.EntryText : entryObject.EntryText;
+                    entryObject.IsActive = entry.IsActive;
+                    _dbContext.ToDoEntries.Update(entryObject);
+                    await _dbContext.SaveChangesAsync();
+                } else
+                {
+                    throw new Exception("Could not find record");
+                }
             }
             catch (Exception ex)
             {

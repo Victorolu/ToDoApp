@@ -16,7 +16,7 @@ function startListenerForUpdateOnCheckboxes() {
                 headers: {
                     'Content-Type': 'application/json'
                 },
-                body: JSON.stringify({ id: parseInt(element.id), isActive: !element.checked })
+                body: JSON.stringify({ id: parseInt(element.value), isActive: !element.checked })
             }).then((response) => {
                 return response.json();
             }).then((data) => {
@@ -75,12 +75,11 @@ function deleteEntry(id) {
     let element = document.getElementById(`entry-(${id})`);
     element.parentNode.style.display = 'none';
 
-    fetch('todo/deleteentry', {
+    fetch(`todo/deleteentry?id=${id}`, {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ id })
+        }
     }).then((response) => {
         return response.json();
     }).then((data) => {
