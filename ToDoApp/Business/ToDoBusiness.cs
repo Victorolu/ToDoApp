@@ -19,12 +19,15 @@ namespace ToDoApp.Business
             return entries;
         }
 
-        public async Task AddEntry(ToDoEntry entry)
+        public async Task<int> AddEntry(ToDoEntry entry)
         {
             try
+            
             {
+                entry.CreatedBy = DateTime.Now;
                 _dbContext.ToDoEntries.Add(entry);
                 await _dbContext.SaveChangesAsync();
+                return entry.Id;
             }
             catch(Exception ex)
             {

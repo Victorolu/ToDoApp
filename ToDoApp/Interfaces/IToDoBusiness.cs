@@ -6,7 +6,7 @@ namespace ToDoApp.Interfaces
     {
         List<ToDoEntry> GetAllEntries();
 
-        Task AddEntry(ToDoEntry entry);
+        Task<int> AddEntry(ToDoEntry entry);
 
         Task DeleteEntry(int id);
 

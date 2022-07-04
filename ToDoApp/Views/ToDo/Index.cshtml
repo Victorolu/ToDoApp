@@ -1,7 +1,54 @@
-﻿
+﻿@model ToDoApp.ViewModels.ToDoViewModel
 @{
     ViewData["Title"] = "Index";
 }
 
-<h1>Index</h1>
+<div class="d-flex justify-content-center">`
+    <div class="w-50">
+        <ul id="task-tabs" class="nav nav-tabs d-flex justify-content-center mb-3" role="tablist">
+            <li class="nav-item" role="presentation">
+                <a class="nav-link active" id="uncompleted-tab" data-bs-toggle="tab" data-bs-target="#uncompleted" role="tab" aria-controls="uncompleted" aria-selected="true">Uncompleted tasks</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" id="completed-tab" data-bs-toggle="tab" data-bs-target="#completed" role="tab" aria-controls="completed" aria-selected="true">Completed tasks</a>
+            </li>
+        </ul>
+        <div class="input-group mb-5">
+            <input id="new-entry" class="form-control" placeholder="Input New Entry..." type="text"/>
+            <button class="btn btn-outline-primary" onclick="createNewEntry()">Add</button>
+        </div>
+        <div id="task-content" class="tab-content">
+            @{
+                var completedTasks = Model.Entries?.Where(x => !x.IsActive);
+                var unCompletedTasks = Model.Entries?.Where(x => x.IsActive);
+            }
+            <diV class="tab-pane fade show active" id="uncompleted" role="tabpanel" aria-labelledby="uncompleted-tab">
+                @if (unCompletedTasks != null)
+                {
+                    foreach (var unCompletedTask in unCompletedTasks)
+                    {
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" name="@unCompletedTask.Id" id="entry-(@unCompletedTask.Id)" value="@unCompletedTask.Id" checked="@(!unCompletedTask.IsActive)">
+                          <label class="form-check-label" for="@unCompletedTask.Id">@unCompletedTask.EntryText</label>
+                          <button class="btn btn-outline-danger delete-button" onclick="deleteEntry(@unCompletedTask.Id)">Delete</button>
+                        </div>
+                    }
+                }
+            </div>
+            <div class="tab-pane fade" id="completed" role="tabpanel" aria-labelledby="completed-tab">
+                @if (completedTasks != null)
+                {
+                    foreach (var completedTask in completedTasks)
+                    {
+                        <div class="form-check">
+                          <input class="form-check-input" type="checkbox" name="@completedTask.Id" id="entry-(@completedTask.Id)" value="@completedTask.Id" checked="@(!completedTask.IsActive)">
+                          <label class="form-check-label" for="@completedTask.Id">@completedTask.EntryText</label>
+                          <button class="btn btn-outline-danger delete-button" onclick="deleteEntry(@completedTask.Id)">Delete</button>
+                        </div>
+                    }
+                }
+            </div>
+        </div>
+    </div>
+</div>
 

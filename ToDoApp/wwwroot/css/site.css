@@ -16,3 +16,14 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.form-check {
+    border-bottom: 0.5px solid #ced4da;
+    padding-bottom: 10px;
+}
+
+.delete-button {
+    display: block;
+    font-size: 11px;
+    margin-left: auto;
+}
